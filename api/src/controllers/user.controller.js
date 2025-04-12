@@ -20,6 +20,10 @@ export const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
+  if(password.length < 4){
+    throw new ApiError(400, "Password must be at least 4 characters long");
+  }
+
   // Check if user exists
   const existedUser = await User.findOne({ email });
 
