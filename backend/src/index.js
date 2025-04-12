@@ -26,19 +26,7 @@ app.use(
 );
 
 //* Database connection
- connectDb()
-//   .then(() => {
-//     logger.info("Connected to the database successfully!");
-//     // Only start the server after DB connection succeeds
-//     app.listen(PORT, () => {
-//       logger.info(`Server is running on port ${PORT}`);
-//     });
-//   })
-//   .catch((error) => {
-//     logger.error("Error connecting to the database:", error);
-//     // Handle the error without crashing, or exit gracefully
-//     process.exit(1); // Exit with error code if DB connection is essential
-//   });
+connectDb();
 
 app.get("/", (req, res) => {
   res.send("Server is running!");

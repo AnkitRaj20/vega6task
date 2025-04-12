@@ -11,6 +11,7 @@ This is a full-stack blog management application built with the **MERN Stack (Mo
   npm install
   npm run dev
 ```
+if .env is missing then copy it from .env.sample file
 
 # Steps To Run Frontend
 
@@ -19,6 +20,7 @@ This is a full-stack blog management application built with the **MERN Stack (Mo
   npm install
   npm run dev
 ```
+if .env is missing then copy it from .env.sample file
 
 ## 🚀 Features
 
