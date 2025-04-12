@@ -68,10 +68,10 @@ const ViewBlog = () => {
       setEditCommentId(null);
       setReplyTo(null);
       fetchComments();
-    }else{
+    } else {
       const data = await res.json();
       console.error("Error:", data.message);
-      alert( data.message);
+      alert(data.message);
     }
   };
 
@@ -151,13 +151,13 @@ const ViewBlog = () => {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-10">
+      <div className="  z-10">
         <Navbar />
       </div>
 
       <div className="min-h-screen bg-gray-50 py-10 px-6 flex justify-center">
         <div className="bg-white shadow-xl rounded-2xl w-full max-w-3xl p-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="sm:text-3xl text-lg font-bold text-gray-800 mb-4">
             {blog.title}
           </h1>
 
@@ -167,11 +167,15 @@ const ViewBlog = () => {
             className="w-full max-h-[400px] object-fill rounded-xl mb-6"
           />
 
-          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 md:p-8 max-w-full w-full overflow-hidden">
-            <div className="text-gray-700 text-base sm:text-lg leading-relaxed whitespace-pre-line break-words">
-              {blog.description}
-            </div>
+          <div className="w-full max-w-64 sm:max-w-full overflow-hidden">
+            
+              <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed whitespace-pre-line break-words">
+              <strong>Content:</strong> <br /> {blog.description}
+              </p>
+            
           </div>
+
+        
 
           <div className="mt-8 text-sm text-gray-500">
             <p>
