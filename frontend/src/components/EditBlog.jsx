@@ -13,7 +13,7 @@ const EditBlog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:8080/api/v1/blog/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/blog/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +39,7 @@ const EditBlog = () => {
     formData.append("description", description);
     if (newImage) formData.append("image", newImage);
 
-    const res = await fetch(`http://localhost:8080/api/v1/blog/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/blog/${id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

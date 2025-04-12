@@ -16,7 +16,7 @@ const ViewBlog = () => {
   // Fetch Blog
   useEffect(() => {
     const fetchBlog = async () => {
-      const res = await fetch(`http://localhost:8080/api/v1/blog/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/blog/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -28,7 +28,7 @@ const ViewBlog = () => {
 
   // Fetch Comments
   const fetchComments = async () => {
-    const res = await fetch(`http://localhost:8080/api/v1/comment/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_BASE_URL}/comment/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -45,8 +45,8 @@ const ViewBlog = () => {
 
     const method = editCommentId ? "PUT" : "POST";
     const url = editCommentId
-      ? `http://localhost:8080/api/v1/comment/${editCommentId}`
-      : "http://localhost:8080/api/v1/comment";
+      ? `${import.meta.env.VITE_BASE_URL}/comment/${editCommentId}`
+      : `${import.meta.env.VITE_BASE_URL}/comment`;
 
     const body = {
       content: newComment,
@@ -81,7 +81,7 @@ const ViewBlog = () => {
     if (!confirm) return;
 
     const res = await fetch(
-      `http://localhost:8080/api/v1/comment/${commentId}`,
+      `${import.meta.env.VITE_BASE_URL}/comment/${commentId}`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },

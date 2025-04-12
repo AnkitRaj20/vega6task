@@ -17,7 +17,7 @@ const BlogForm = () => {
     formData.append("image", image);
 
     // You can replace this fetch call with your API logic
-    fetch("http://localhost:8080/api/v1/blog", {
+    fetch(`${import.meta.env.VITE_BASE_URL}/blog`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

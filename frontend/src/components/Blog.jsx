@@ -16,7 +16,7 @@ const Blog = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:8080/api/v1/blog?page=${page}&limit=${limit}&search=${search}`,
+        `${import.meta.env.VITE_BASE_URL}/blog?page=${page}&limit=${limit}&search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ const Blog = () => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/v1/blog/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/blog/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

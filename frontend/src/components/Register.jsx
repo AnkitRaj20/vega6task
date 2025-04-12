@@ -20,7 +20,7 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/api/v1/user/register", {
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user/register`, {
         method: "POST",
         body: formData,
       });
