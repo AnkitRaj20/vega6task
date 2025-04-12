@@ -38,10 +38,18 @@ export const createComment = asyncHandler(async (req, res) => {
 
 export const getAllParentComment = asyncHandler(async (req, res) => {
   const { id: blogId } = req.params;
+  const currentUserId = req.user._id.toString();
 
   if (!blogId) {
     throw new ApiError(400, "Blog ID is required");
   }
+
+  // Fetch the blog to know who the author is
+  const blog = await Blog.findById(blogId);
+  if (!blog) {
+    throw new ApiError(404, "Blog not found");
+  }
+  const blogOwnerId = blog.author.toString();
 
   // Fetch parent comments (top-level comments) for the blog
   const parentComments = await Comment.find({
@@ -68,6 +76,8 @@ export const getAllParentComment = asyncHandler(async (req, res) => {
         const replies = await getNestedReplies(child._id);
         return {
           ...child.toObject(),
+          owner:    child.createdBy._id.toString() === currentUserId ||
+          blogOwnerId === currentUserId,
           replies,
         };
       })
@@ -81,6 +91,8 @@ export const getAllParentComment = asyncHandler(async (req, res) => {
       const replies = await getNestedReplies(comment._id);
       return {
         ...comment.toObject(),
+        owner:  comment.createdBy._id.toString() === currentUserId ||
+        blogOwnerId === currentUserId,
         replies,
       };
     })
