@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { verifyToken } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import {
   createBlog,
@@ -11,7 +11,7 @@ import {
 const blogRouter = Router();
 
 blogRouter.route("/").post(
-  verifyJWT,
+  verifyToken,
   upload.fields([
     {
       name: "image",
@@ -21,10 +21,10 @@ blogRouter.route("/").post(
   createBlog
 );
 
-blogRouter.route("/").get(verifyJWT, getAllBlogs);
-blogRouter.route("/:id").get(verifyJWT, getAllBlogs);
+blogRouter.route("/").get(verifyToken, getAllBlogs);
+blogRouter.route("/:id").get(verifyToken, getAllBlogs);
 blogRouter.route("/:id").put(
-  verifyJWT,
+  verifyToken,
   upload.fields([
     {
       name: "image",
@@ -33,6 +33,6 @@ blogRouter.route("/:id").put(
   ]),
   updateBlog
 );
-blogRouter.route("/:id").delete(verifyJWT, deleteBlog);
+blogRouter.route("/:id").delete(verifyToken, deleteBlog);
 
 export default blogRouter;

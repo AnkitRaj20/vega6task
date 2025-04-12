@@ -9,7 +9,7 @@ import {
 } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { verifyToken } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -26,13 +26,13 @@ router.route("/register").post(
 router.route("/login").post(loginUser);
 
 //! Secured routes
-router.route("/").get(verifyJWT, getUserData)
-router.route("/logout").post(verifyJWT, logoutUser);
+router.route("/").get(verifyToken, getUserData)
+router.route("/logout").post(verifyToken, logoutUser);
 
-router.route("/update-profile").patch(verifyJWT, updateProfileDetails);
+router.route("/update-profile").patch(verifyToken, updateProfileDetails);
 
 router
   .route("/update-profile-picture")
-  .patch(verifyJWT, upload.single("profilePicture"), updateProfilePictureFile);
+  .patch(verifyToken, upload.single("profilePicture"), updateProfilePictureFile);
 
 export default router;
