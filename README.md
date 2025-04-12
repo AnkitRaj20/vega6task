@@ -76,6 +76,3 @@ This is a full-stack blog management application built with the **MERN Stack (Mo
 - **Image Upload**: Multer
 
 ---
-
-## 📁 Folder Structure
-
