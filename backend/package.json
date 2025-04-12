@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-boilerplate",
+  "name": "vega6task",
   "version": "1.0.0",
-  "description": "A boilerplate for node js to to start easy development",
+  "description": "Task For Node JS Developer",
   "main": "src/index.js",
   "type": "module",
   "scripts": {

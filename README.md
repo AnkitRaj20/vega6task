@@ -4,6 +4,22 @@ This is a full-stack blog management application built with the **MERN Stack (Mo
 
 ---
 
+# Steps To Run Backend
+
+```
+  cd backend
+  npm install
+  npm run dev
+```
+
+# Steps To Run Frontend
+
+```
+  cd frontend
+  npm install
+  npm run dev
+```
+
 ## 🚀 Features
 
 ### 🔐 Authentication
@@ -92,7 +108,7 @@ root
 │   ├── components/            
 │   └── App.jsx                # Main entry file
 │
-└── API/                       # Node.js/Express Backend
+└── backend/                       # Node.js/Express Backend
     ├── src/  
         ├── controllers/       # Controllers for auth, blog, comment
         ├── models/            # Mongoose models
