@@ -67,7 +67,7 @@ const Blog = () => {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-10">
+      <div className="z-10">
         <Navbar />
       </div>
 

@@ -1,3 +1,4 @@
+import { Loader } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,11 +7,14 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [profilePicture, setProfilePicture] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("email", email);
@@ -20,22 +24,27 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user/register`, {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BASE_URL}/user/register`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       const data = await res.json();
 
-      
       if (data.success) {
+        setLoading(false);
         localStorage.setItem("accessToken", data.data.accessToken);
         navigate("/dashboard");
       } else {
+        setLoading(false);
         setErrorMsg(data.message || "Registration failed");
       }
     } catch (err) {
       console.error(err);
+      setLoading(false);
       setErrorMsg("Something went wrong. Try again.");
     }
   };
@@ -89,7 +98,6 @@ const Register = () => {
                 </div>
 
                 <div className="relative">
-               
                   <input
                     id="profilePicture"
                     name="profilePicture"
@@ -99,33 +107,32 @@ const Register = () => {
                     className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
                     file:rounded-md file:border-0 file:text-sm file:font-semibold
                     file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100"
-         required
+                    required
                   />
                   <p className="text-sm text-gray-500 mt-1">
                     Upload your profile picture
                   </p>
                 </div>
 
-                {errorMsg && (
-                  <p className="text-red-600 text-sm">{errorMsg}</p>
-                )}
+                {errorMsg && <p className="text-red-600 text-sm">{errorMsg}</p>}
 
                 <div className="relative">
                   <button
                     type="submit"
                     className="bg-cyan-500 hover:bg-cyan-600 text-white rounded-md px-4 py-2 transition duration-200 w-full"
                   >
-                    Register
+                    {loading ? <Loader /> :"Register"} 
+                    
                   </button>
                 </div>
 
                 <div>
-                    <p className="text-sm text-gray-600">
-                        Already have an account?{" "}
-                        <a href="/" className="text-cyan-500 hover:underline">
-                        Login
-                        </a>
-                    </p>
+                  <p className="text-sm text-gray-600">
+                    Already have an account?{" "}
+                    <a href="/" className="text-cyan-500 hover:underline">
+                      Login
+                    </a>
+                  </p>
                 </div>
               </div>
             </div>

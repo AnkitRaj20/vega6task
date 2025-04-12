@@ -151,7 +151,7 @@ const ViewBlog = () => {
 
   return (
     <>
-      <div className="  z-10">
+      <div className="z-10">
         <Navbar />
       </div>
 

@@ -67,8 +67,7 @@ export const getAllParentComment = asyncHandler(async (req, res) => {
       parentComment: commentId,
       isDeleted: false,
     })
-      .populate("createdBy", "email")
-      .sort({ createdAt: -1 });
+      .populate("createdBy", "email");
 
     //* For every reply,  fetch its child replies
     const nestedReplies = await Promise.all(

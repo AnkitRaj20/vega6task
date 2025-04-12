@@ -98,11 +98,11 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
     .skip(skip)
     .limit(limit);
 
-    const blogWithOwnerKey = blogs.map((blog) => {
-        const blogObj = blog.toObject(); // Convert Mongoose document to plain object
-        blogObj.owner = blog.author._id.equals(req.user._id) ? true : false ; // Add owner key
-        return blogObj;
-    })
+  const blogWithOwnerKey = blogs.map((blog) => {
+    const blogObj = blog.toObject(); // Convert Mongoose document to plain object
+    blogObj.owner = blog.author._id.equals(req.user._id) ? true : false; // Add owner key
+    return blogObj;
+  });
 
   if (!blogs) {
     throw new ApiError(500, "Blogs not found");
@@ -112,7 +112,7 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
     new ApiResponse(
       200,
       {
-        blogs : blogWithOwnerKey,
+        blogs: blogWithOwnerKey,
         pagination: {
           total: totalBlogs,
           page,
@@ -143,11 +143,9 @@ export const updateBlog = asyncHandler(async (req, res) => {
 
   const author = req.user._id;
 
-  
   if (!existBlog.author.equals(author)) {
     throw new ApiError(403, "You are not authorized to edit this blog");
   }
-  
 
   // Check if the  avatar file is present or not
   let imageLocalPath;
@@ -202,8 +200,6 @@ export const deleteBlog = asyncHandler(async (req, res) => {
   if (!existBlog.author.equals(req.user._id)) {
     throw new ApiError(403, "You are not authorized to delete this blog");
   }
-  
-
 
   //* Soft delete the blog by marking it as deleted
   existBlog.isDeleted = true;

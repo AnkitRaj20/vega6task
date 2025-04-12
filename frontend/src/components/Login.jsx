@@ -1,3 +1,4 @@
+import { Loader } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -5,10 +6,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const Navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+    setLoading(true);
 
     try {
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/user/login`, {
@@ -21,22 +24,17 @@ const Login = () => {
 
       const data = await res.json();
 
-
       if (data.success) {
+        setLoading(false);
         localStorage.setItem("accessToken", data.data.accessToken);
         Navigate("/dashboard");
-      }else{
+      } else {
+        setLoading(false);
         setErrorMsg(data.message || "Login failed");
       }
-
-      // if (!res.ok) {
-      //   setErrorMsg(data.message || "Login failed");
-      // } else {
-      //   // Redirect to dashboard or wherever you want
-      //   window.location.href = "/dashboard"; // or use navigate if you're using React Router
-      // }
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setErrorMsg("Something went wrong. Try again.");
     }
   };
@@ -95,26 +93,28 @@ const Login = () => {
                       <p className="text-red-600 text-sm">{errorMsg}</p>
                     )}
 
+
+
                     <div className="relative">
                       <button
                         type="submit"
                         className="bg-cyan-500 hover:bg-cyan-600 text-white rounded-md px-4 py-2 transition duration-200"
                       >
-                        Submit
+                       {loading ? <Loader /> :"Log in"}  
                       </button>
                     </div>
 
                     <div>
-                        <p className="text-sm text-gray-500">
-                            Don't have an account?{" "}
-                            <a
-                            href="/register"
-                            className="text-cyan-600 hover:text-cyan-700 font-semibold"
-                            >
-                            Register here
-                            </a>
-                        </p>
-                </div>
+                      <p className="text-sm text-gray-500">
+                        Don't have an account?{" "}
+                        <a
+                          href="/register"
+                          className="text-cyan-600 hover:text-cyan-700 font-semibold"
+                        >
+                          Register here
+                        </a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
